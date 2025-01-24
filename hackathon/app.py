@@ -7,7 +7,6 @@ import platform
 
 app = Flask(__name__)
 
-# Secret key for session management (needed for flashing messages)
 app.secret_key = 'your_secret_key'
 
 # Constants
@@ -15,7 +14,7 @@ USERNAME = 'admin'
 PASSWORD = 'password123'
 CSV_FILE = 'students_data.csv'
 
-# Configure pdfkit with the path to wkhtmltopdf
+# wkhtmltopdf
 if platform.system() == 'Windows':
     config = pdfkit.configuration(wkhtmltopdf=r"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe")
 else:
@@ -61,7 +60,7 @@ def save_students_to_csv(students_data):
             }
             writer.writerow(row)
 
-# Initialize students_data from CSV or use default data if file doesn't exist
+# use default data if file doesn't exist
 if os.path.exists(CSV_FILE):
     students_data = load_students_from_csv()
 else:
@@ -102,7 +101,7 @@ else:
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # Changed from redirect to render_template
+    return render_template('index.html') 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -115,13 +114,12 @@ def login():
             return redirect(url_for('admin'))  # Redirect to admin page if login is successful
         elif next((s for s in students_data.values() if s['username'] == username and s['password'] == password), None):
             student = next((s for s in students_data.values() if s['username'] == username and s['password'] == password), None)
-        
             if student:
                 # If student is found, redirect to their individual page
                 student_id = next(key for key, value in students_data.items() if value == student)
                 return redirect(url_for('student', student_id=student_id))
         else:
-            flash('Invalid username or password!', 'error')  # Show error message
+            flash('Invalid username or password!', 'error')  
         
     return render_template('login.html')
 
