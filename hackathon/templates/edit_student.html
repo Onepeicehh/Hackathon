@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% include 'shared_styles.html' %}
+    <style>
+        body {
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(45, 212, 191, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                var(--background);
+        }
+
+        .edit-container {
+            max-width: 800px;
+            margin: 40px auto;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .edit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .edit-header h2 {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 0;
+        }
+
+        .edit-form {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(var(--blur-strength));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            height: 36px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(45, 212, 191, 0.2);
+        }
+
+        .subjects-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .subjects-section h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin-bottom: 16px;
+        }
+
+        .subject-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 5%;
+            width: 90%;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .back-btn {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <div class="edit-header">
+            <h2>Edit Student</h2>
+        </div>
+
+        <form method="POST" class="edit-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="{{ student.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="grade">Grade</label>
+                <input type="text" id="grade" name="grade" value="{{ student.grade }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <input type="text" id="status" name="status" value="{{ student.status }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact</label>
+                <input type="text" id="contact" name="contact" value="{{ student.contact }}" required>
+            </div>
+
+            <div class="subjects-section">
+                <h3>Subject Marks</h3>
+                <div class="subject-inputs">
+                    <div class="form-group">
+                        <label for="math">Math</label>
+                        <input type="number" id="math" name="math" value="{{ student.subjects.Math }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="physics">Physics</label>
+                        <input type="number" id="physics" name="physics" value="{{ student.subjects.Physics }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chemistry">Chemistry</label>
+                        <input type="number" id="chemistry" name="chemistry" value="{{ student.subjects.Chemistry }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="biology">Biology</label>
+                        <input type="number" id="biology" name="biology" value="{{ student.subjects.Biology }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="english">English</label>
+                        <input type="number" id="english" name="english" value="{{ student.subjects.English }}" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <a href="{{ url_for('admin') }}" class="back-btn">← Back</a>
+                <button type="submit" class="submit-btn">Update Student</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

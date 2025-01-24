@@ -1,0 +1,3 @@
+id,name,grade,status,subjects,contact,username,password
+4,aditya,s,Passed,"{'Math': 100, 'Physics': 100, 'Chemistry': 80, 'Biology': 100, 'English': 80}",797694796,sathy,12345678
+5,vaishnav,a,Passed,"{'Math': 1, 'Physics': 5, 'Chemistry': 5, 'Biology': 30, 'English': 41}",23424425343,vaishnav,12345678
